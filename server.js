@@ -1,21 +1,27 @@
 const { createServer } = require("http");
 const { Server } = require("socket.io");
 const express = require("express");
+const cors = require("cors");
 
 const app = express();
 const httpServer = createServer(app);
-const io = new Server(httpServer);
+
+// Allow CORS for your frontend URL
+app.use(cors({
+  origin: "*", // Replace with your actual frontend URL
+  methods: ["GET", "POST"],
+  allowedHeaders: ["Content-Type"],
+}));
+
+const io = new Server(httpServer, {
+  cors: {
+    origin: "*", // Replace with your actual frontend URL
+    methods: ["GET", "POST"]
+  }
+});
 
 const allUsers = {};
 const allRooms = [];
-
-// Allow CORS for your frontend URL
-app.use((req, res, next) => {
-  res.setHeader("Access-Control-Allow-Origin", "https://tic-cat-toe-frontend.vercel.app");
-  res.setHeader("Access-Control-Allow-Methods", "GET, POST");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
-  next();
-});
 
 io.on("connection", (socket) => {
   allUsers[socket.id] = {
