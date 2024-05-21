@@ -5,7 +5,8 @@ const httpServer = createServer();
 const io = new Server(httpServer, {
   cors: {
     origin: "https://tic-cat-toe-frontend.vercel.app",
-    methods: ["GET", "POST"]
+    methods: ["GET", "POST"],
+    credentials: true
   }
 });
 
