@@ -1,21 +1,22 @@
-const express = require('express');
-const cors = require('cors');
 const { createServer } = require("http");
 const { Server } = require("socket.io");
+const express = require("express");
+const cors = require("cors");
 
 const app = express();
+const httpServer = createServer(app);
+
+// Allow CORS for your frontend URL
 app.use(cors({
-  origin: "https://tic-cat-toe-frontend.vercel.app",
+  origin: "https://tic-cat-toe-frontend.vercel.app", // Replace with your actual frontend URL
   methods: ["GET", "POST"],
-  credentials: true
+  allowedHeaders: ["Content-Type"],
 }));
 
-const httpServer = createServer(app);
 const io = new Server(httpServer, {
   cors: {
-    origin: "https://tic-cat-toe-frontend.vercel.app",
-    methods: ["GET", "POST"],
-    credentials: true
+    origin: "https://tic-cat-toe-frontend.vercel.app", // Replace with your actual frontend URL
+    methods: ["GET", "POST"]
   }
 });
 
@@ -23,8 +24,6 @@ const allUsers = {};
 const allRooms = [];
 
 io.on("connection", (socket) => {
-  console.log("New connection:", socket.id);
-  
   allUsers[socket.id] = {
     socket: socket,
     online: true,
@@ -100,6 +99,4 @@ io.on("connection", (socket) => {
   });
 });
 
-httpServer.listen(3000, () => {
-  console.log('Server is running on port 3000');
-});
+httpServer.listen(3000);
