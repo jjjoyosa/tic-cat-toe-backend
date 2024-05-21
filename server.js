@@ -3,8 +3,12 @@ const { Server } = require("socket.io");
 
 const httpServer = createServer();
 const io = new Server(httpServer, {
-  cors: "https://tic-cat-toe-frontend.vercel.app/",
+  cors: {
+    origin: "https://tic-cat-toe-frontend.vercel.app",
+    methods: ["GET", "POST"]
+  }
 });
+
 
 const allUsers = {};
 const allRooms = [];
