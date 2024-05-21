@@ -99,4 +99,8 @@ io.on("connection", (socket) => {
   });
 });
 
+app.get("/", (req, res) => {
+  res.send("Hello, World!"); // Replace this with your desired response
+});
+
 httpServer.listen(3000);
