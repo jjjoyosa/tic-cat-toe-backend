@@ -8,14 +8,14 @@ const httpServer = createServer(app);
 
 // Allow CORS for your frontend URL
 app.use(cors({
-  origin: "https://tic-cat-toe-frontend.vercel.app", // Replace with your actual frontend URL
+  origin: "*", // Replace with your actual frontend URL
   methods: ["GET", "POST"],
   allowedHeaders: ["Content-Type"],
 }));
 
 const io = new Server(httpServer, {
   cors: {
-    origin: "https://tic-cat-toe-frontend.vercel.app", // Replace with your actual frontend URL
+    origin: "*", // Replace with your actual frontend URL
     methods: ["GET", "POST"]
   }
 });
