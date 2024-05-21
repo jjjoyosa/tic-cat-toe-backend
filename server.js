@@ -99,8 +99,11 @@ io.on("connection", (socket) => {
   });
 });
 
+// Display a simple greeting message when accessing the root URL
 app.get("/", (req, res) => {
-  res.send("Hello, World!"); // Replace this with your desired response
+  res.send("<h1>Welcome to my game server!</h1>");
 });
 
-httpServer.listen(3000);
+httpServer.listen(3000, () => {
+  console.log("Server running on port 3000");
+});
